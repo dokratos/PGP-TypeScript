@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// interface Address {
-//   country: String,
-//   state: String,
-//   city: String,
-//   postcode: String,
-//   street: String,
-//   number: Number,
-// }
-
 interface IUser {
   name: String,
   age: number,
@@ -31,8 +22,6 @@ function App() {
         age: randomUser.dob.age,
         address: randomUser.location.city
       })
-
-      console.log(user);
     };
 
     fetchedUser();

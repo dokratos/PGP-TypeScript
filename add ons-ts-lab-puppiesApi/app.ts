@@ -39,13 +39,6 @@ app.put('/api/puppies/:id', async (req: Request, res: Response) => {
   const { name, breed, birthDate } = req.body;
   
   const newDb = db.filter(item => item.id !== Number(id));
-
-  // const newDb = db.find(puppy => {
-  //   if (puppy.id === Number(id)) {
-  //     return {...puppy, name, breed, birthDate }
-  //   }
-  //   return puppy;
-  // })
  
   const newPuppy = {
     id: Number(id),
@@ -63,7 +56,5 @@ app.delete('/api/puppies/:id', (req: Request, res: Response) => {
   const newDb = db.filter(item => item.id !== Number(id));
   return res.status(200).send(newDb);
 });
-
-
 
 export default app;

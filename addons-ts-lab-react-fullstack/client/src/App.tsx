@@ -1,26 +1,19 @@
 import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Puppy } from '../../types';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PuppyInfo from './components/PuppyInfo';
+import Landing from './components/Landing';
 import './App.css';
-import PuppyList from './components/PuppyList';
-// import NavBar from './components/NavBar';
-import AddForm from './components/AddForm';
+
 
 
 function App() {
   return (
-  //   <Router>
-  //     <NavBar />
-  //     <Routes>
-  //       <Route path='/' element={<PuppyList />} />
-  //       <Route path='/newpuppy' element={<AddForm />} />
-  //     </Routes>
-  // </Router>
-  <>
-  <h1>Check our puppies!</h1>
-  <PuppyList />
-  <AddForm />
-  </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/puppy/:id' element={<PuppyInfo />} />
+      </Routes>
+  </Router>
   )
 }
 

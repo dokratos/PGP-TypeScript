@@ -3,4 +3,5 @@ export interface Puppy {
     breed: string,
     name: string,
     birthDate: number,
+    img: string,
 }

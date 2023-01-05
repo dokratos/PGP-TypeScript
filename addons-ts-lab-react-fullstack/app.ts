@@ -1,6 +1,7 @@
 import express from 'express';
 import { Application, Request, Response } from 'express';
 import { nextId } from './utils';
+import getPhoto from './unsplash';
 import { db } from './db';
 
 const app: Application = express();
@@ -14,13 +15,16 @@ app.get('/api/puppies', (_req: Request, res: Response) => {
     }
 });
   
-app.get('/api/puppies/:id', (req: Request, res: Response) => {
+app.get('/api/puppies/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const puppy = db.find(item => item.id === Number(id));
+        let puppy = db.find(item => item.id === Number(id));
         if (!puppy) {
             return res.status(404).send('Puppy not found!');
         }
+        const query = puppy.breed.split(' ').join('+').toLowerCase()
+        const img = await getPhoto(`${query}`)
+        puppy = {...puppy, img}
         return res.status(200).send(puppy);
     } catch (error) {
         return res.status(500).json({ error: error});
@@ -38,7 +42,8 @@ app.post('/api/puppies', (req: Request, res: Response) => {
             id: nextId(db),
             name,
             breed,
-            birthDate
+            birthDate,
+            img: ''
         }
         db.push(newPuppy);
         
@@ -51,24 +56,25 @@ app.post('/api/puppies', (req: Request, res: Response) => {
 app.put('/api/puppies/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        let puppy = db.find(item => item.id === Number(id));
-        if (!puppy) {
+        const index = db.findIndex(item => item.id === Number(id));
+        if (!index) {
             return res.status(404).send('Puppy not found!');
         }
 
-        const { name, breed, birthDate } = req.body;
+        const { name, breed, birthDate, img } = req.body;
         if (!name || !breed || !birthDate) {
             return res.status(418).send('Missing data');
         }
     
-        puppy = {
+        const puppy = {
           id: Number(id),
           name,
           breed,
-          birthDate
+          birthDate,
+          img,
         }
-    
-        return res.status(200).send(puppy);
+        db.splice(index, 1, puppy);
+        return res.status(200).send(db);
         
     } catch (error) {
         return res.status(500).json({ error: error});
@@ -78,11 +84,13 @@ app.put('/api/puppies/:id', async (req: Request, res: Response) => {
 app.delete('/api/puppies/:id', (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const newDb = db.filter(item => item.id !== Number(id));
-        if (newDb === db) {
+        const puppy = db.find(item => item.id === Number(id));
+        if (!puppy) {
             return res.status(404).send('Puppy not found!');
         }
-        return res.status(200).send(newDb);
+        const index = db.findIndex(item => item.id === Number(id));
+        db.splice(index, 1);
+        return res.status(200).send(db);
     } catch (error) {
         return res.status(500).json({ error: error});
     }

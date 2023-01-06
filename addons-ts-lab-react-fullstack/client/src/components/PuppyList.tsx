@@ -28,17 +28,20 @@ const PuppyList = () => {
     };
     
     return (
-      <div className="App">
+      <section className="puppy-list">
+        <h1 className='puppy-list__title'>Check out our puppies!</h1>
         {puppies.map((puppy: Puppy, i) => 
-        <div key={i}>
+        <div key={i} className='puppy-list__puppy'>
         <PuppyCard 
         puppy={puppy}
         handleData={handleDelete}
         />
-        <Link to={`/puppy/${puppy.id}`}>learn more</Link>
+        <button >
+        <Link className='link' to={`/puppy/${puppy.id}`}>More on {puppy.name}!</Link>
+        </button>
         </div>
         )}
-      </div>
+      </section>
     );
 }
 

@@ -1,38 +1,77 @@
-.App {
-  text-align: center;
+body {
+  margin: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+input {
+  display: block;
+  width: 90%;
+  padding: 0.5rem;
+  margin-bottom: 0.1rem;
+  border-radius: 0.3rem;
+  border: solid;
+  border-color: grey;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.add-form__button {
+  margin-left: 23%;
+  padding: 0.4rem 1.2rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+.puppy-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.puppy-list__title {
+  width: 100%;
+}
+
+.puppy-list__puppy {
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+  margin: 0.2rem;
+  min-width: 40%;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+button {
+  border-radius: 0.3rem;
+  border: solid;
+  border-color: grey;
+  margin-bottom: 0.1rem;
+  padding: 0.2rem 0.3rem;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.puppy-data {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+img {
+  width: 70%;
+  border-radius: 0.2rem;
+}
+.editForm {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+  .puppy-list__puppy {
+    min-width: 22%;
   }
 }

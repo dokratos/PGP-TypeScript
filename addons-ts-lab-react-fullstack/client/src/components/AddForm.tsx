@@ -22,7 +22,7 @@ const AddForm = () => {
     }
   
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form onSubmit={e => handleSubmit(e)} className='add-form'>
         <input
             type='text'
             placeholder='Name'
@@ -41,7 +41,7 @@ const AddForm = () => {
             name='birthDate'
             onChange={e => handleChange(e)}
         ></input>
-        <input type='submit' value='Add' />
+        <button type='submit' className='add-form__button'>Add a new Puppy!</button>
     </form>
   )
 }

@@ -41,25 +41,27 @@ const PuppyInfo = () => {
     }
 
   return (
-     <article>  
+     <section>  
+         <Link className='link' to='/'>Home</Link>
       { !isEdit ?
-        <>
-            <h1>{puppy.name}</h1>
-            <p>{puppy.breed}</p>
-            <p>{puppy.birthDate}</p>
+        <article className='puppy-data'>
             <img src={puppy.img} />
-            <button onClick={(e) => handleEdit(e, puppy.id)}>Edit</button>
-        </>
+            <div>
+                <h1>{puppy.name}</h1>
+                <p>{puppy.breed}</p>
+                <p>{puppy.birthDate}</p>
+                <button onClick={(e) => handleEdit(e, puppy.id)}>Edit</button>
+            </div>
+        </article>
       : 
-        <>
+        <form className='editForm'>
             <input type="text" name="name" placeholder={puppy.name} onChange={handleChange}></input>
             <input type="text" name="breed" placeholder={puppy.breed} onChange={handleChange}></input>
             <input type="number" name="birthDate" onChange={handleChange}></input>
             <button onClick={(e) => handleConfirm(e, puppy.id)}>Save</button>
-        </>
+        </form>
     }
-    <Link to='/'>Home</Link>
-   </article>
+   </section>
   )
 }
 

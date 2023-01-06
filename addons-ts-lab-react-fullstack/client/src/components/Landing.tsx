@@ -5,9 +5,8 @@ import PuppyList from './PuppyList';
 const Landing = () => {
   return (
     <main>
-        <h1>Check our puppies!</h1>
-        <PuppyList />
         <AddForm />
+        <PuppyList />
     </main>
   )
 }

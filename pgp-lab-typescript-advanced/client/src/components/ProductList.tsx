@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {IProduct} from '../types';
 
-import Product from './Product';
+import ProductCard from './ProductCard';
 
 const ProductList = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -18,7 +18,7 @@ const ProductList = () => {
   return (
     <div>
         {products.map((product: IProduct, i) =>
-        <Product 
+        <ProductCard
         product={product}
         key={i}
         />)}

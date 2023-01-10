@@ -1,9 +1,7 @@
 CREATE DATABASE tsecommerce;
 
 CREATE TABLE carts(
-    ID SERIAL PRIMARY KEY,
-    date text,
-    total_price numeric
+    ID SERIAL PRIMARY KEY
 );
 
 CREATE TABLE products(
@@ -21,5 +19,8 @@ CREATE TABLE cartItems(
     product_id INTEGER,
     FOREIGN KEY (product_id) REFERENCES products (id),
     cart_id INTEGER,
-    FOREIGN KEY (cart_id) REFERENCES carts (id)
+    FOREIGN KEY (cart_id) REFERENCES carts (id),
+    quantity INTEGER,
+    name text,
+    price numeric,
 );

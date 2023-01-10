@@ -7,3 +7,12 @@ export interface IProduct{
     stock: number,
     category: string
 }
+
+export interface ICartItem{
+    cart_id: number,
+    id: number,
+    name: string,
+    price: number,
+    product_id: number,
+    quantity:number
+}

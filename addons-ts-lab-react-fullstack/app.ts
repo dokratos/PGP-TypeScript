@@ -18,14 +18,16 @@ app.get('/api/puppies', (_req: Request, res: Response) => {
 app.get('/api/puppies/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        let puppy = db.find(item => item.id === Number(id));
+        const puppy = db.find(item => item.id === Number(id));
         if (!puppy) {
             return res.status(404).send('Puppy not found!');
         }
+        const index = db.findIndex(item => item.id === Number(id));
         const query = puppy.breed.split(' ').join('+').toLowerCase()
         const img = await getPhoto(`${query}`)
-        puppy = {...puppy, img}
-        return res.status(200).send(puppy);
+        const newPuppy = {...puppy, img: img}
+        db.splice(index, 1, newPuppy);
+        return res.status(200).send(newPuppy);
     } catch (error) {
         return res.status(500).json({ error: error});
     }

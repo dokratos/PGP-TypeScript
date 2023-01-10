@@ -11,6 +11,7 @@ const PuppyCard = ({puppy, handleData}: PuppyCardProps) => {
     <article >
       <h1>{puppy.name}</h1>
       <p>{puppy.breed}</p>
+      <img src={puppy.img}/>
       <button onClick={(e) => handleData(e, puppy.id)}>Delete</button>
     </article>
   )

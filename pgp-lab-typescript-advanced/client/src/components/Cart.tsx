@@ -6,6 +6,8 @@ import axios from 'axios';
 
 const Cart = () => {
   const [cart, setCart] = useState<ICartItem[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [itemsAmount, setItemsAmount] = useState<number>(0);
 
   const { id } = useParams()
 
@@ -14,6 +16,7 @@ const Cart = () => {
         const products = await axios.get(`/cart/${id}`);
         setCart(products.data);
         console.log(cart)
+
       };
       getCart();
     }, [cart]);

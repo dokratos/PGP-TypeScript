@@ -20,13 +20,15 @@ const AddButton = ({product} : ProductProps) => {
   }
 
   const addToCart = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    await axios.post('/cart', {
-      productId: product.id,
-      productName: product.name,
-      productPrice: product.price,
-      quantity: count,
-      cartId: 1
-    });
+    if (count > 0) {
+      await axios.post('/cart', {
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+        quantity: count,
+        cartId: 1
+      });
+    }
     setCount(0);
   }
 

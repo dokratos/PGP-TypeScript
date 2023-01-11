@@ -16,7 +16,7 @@ CREATE TABLE products(
 
 CREATE TABLE cartItems(
     ID SERIAL PRIMARY KEY,
-    product_id INTEGER,
+    product_id INTEGER UNIQUE,
     FOREIGN KEY (product_id) REFERENCES products (id),
     cart_id INTEGER,
     FOREIGN KEY (cart_id) REFERENCES carts (id),

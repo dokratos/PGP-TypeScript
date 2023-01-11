@@ -54,11 +54,21 @@ app.get('/cart/:id', async (req: Request, res: Response) => {
 app.post('/cart', async (req: Request, res: Response) => {
     try {
         const { productId, productName, productPrice, quantity, cartId } = req.body;
-				const order = await pool.query('INSERT INTO cartItems (product_id, cart_id, quantity, name, price) VALUES ($1, $2, $3, $4, $5)', [productId, cartId, quantity, productName, productPrice]);
+				const order = await pool.query('INSERT INTO cartItems (product_id, cart_id, quantity, name, price) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (product_id) DO UPDATE SET quantity = cartItems.quantity + excluded.quantity returning *', [productId, cartId, quantity, productName, productPrice]);
         return res.status(201).json(order.rows);
     } catch (error) {
         return res.status(500).json({ error: error});
     };
+});
+
+app.patch('/cart', async (req: Request, res: Response) => {
+	try {
+		const { itemId, quantity } = req.body;
+		await pool.query('UPDATE cartItems SET quantity = cartItems.quantity + $2 WHERE ID = $1', [itemId, quantity])
+		return res.status(201).send('ok');
+	} catch (error) {
+		return res.status(500).json({ error: error});
+	}
 });
 
 app.delete('/cart', async (req: Request, res: Response) => {
@@ -69,6 +79,20 @@ app.delete('/cart', async (req: Request, res: Response) => {
 	} catch (error) {
 		return res.status(500).json({ error: error});
 	}
-})
+});
+
+app.delete('/cart/:id', async (req: Request, res: Response) => {
+	try {
+		const id = parseInt(req.params.id);
+        const cartProducts = await pool.query('SELECT * FROM cartItems WHERE cart_id = $1', [id]);
+        cartProducts.rows.map(async (item) => {
+            await pool.query('UPDATE products SET stock = products.stock - $2 WHERE ID = $1',[item.product_id, item.quantity])
+        })
+		await pool.query('DELETE FROM cartItems WHERE cart_id = $1', [id]);
+		return res.status(200).send('ok');
+	} catch (error) {
+		return res.status(500).json({ error: error});
+	}
+});
 
 export default app;

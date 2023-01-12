@@ -20,11 +20,10 @@ const ProductList = () => {
 
       const selectChange = ((newValue: SingleValue<{ value: string; label: string; }>) => {
         if (newValue) {
-          if (newValue.value === 'All') return setFilter(products)
+          if (newValue.value === 'All') return setFilter(products);
 
           const filtered = products.filter(item => item.category === newValue.value);
-          setFilter(filtered)
-          
+          setFilter(filtered);
         }
       });
 
@@ -36,16 +35,20 @@ const ProductList = () => {
     ]
 
   return (
-    <div>
-      <Select options={options} 
-  
-      onChange={selectChange}/>
+    <main className='bg-slate-200'>
+      <Select 
+      options={options} 
+      onChange={selectChange}
+      className='mb-10'
+      />
+      <section className='flex flex-row flex-wrap justify-around'>
         {filter.map((product: IProduct, i) =>
         <ProductCard
         product={product}
         key={i}
         />)}
-    </div>
+      </section>
+    </main>
   )
 };
 

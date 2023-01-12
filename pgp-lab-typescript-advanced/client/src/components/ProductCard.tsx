@@ -9,16 +9,15 @@ interface ProductProps {
 
 const ProductCard = ({product}: ProductProps) => {
   return (
-    <article>
-      <h1>{product.name}</h1>
-      <img src={product.image}/>
+    <article className='flex flex-col items-center'>
+      <Link to={`product/${product.id}`}>
+      <img src={product.image} className='w-80 h-60 rounded-lg'/>
+      </Link>
+      <h1 className='font-bold'>{product.name}</h1>
       <p>{product.price}$</p>
-    <Link to={`product/${product.id}`}>See Details</Link>
-    <AddButton 
-    product={product}
-    />
+      <AddButton product={product} />
     </article>
   )
 }
 
-export default ProductCard
+export default ProductCard;

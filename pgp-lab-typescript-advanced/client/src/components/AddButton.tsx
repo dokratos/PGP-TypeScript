@@ -12,12 +12,12 @@ const AddButton = ({product} : ProductProps) => {
   const decrement = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setCount(count - 1);
-  }
+  };
   
   const increment = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setCount(count + 1);
-  }
+  };
 
   const addToCart = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (count > 0) {
@@ -33,11 +33,23 @@ const AddButton = ({product} : ProductProps) => {
   }
 
   return (
-    <div>
-      <button onClick={decrement}>-</button>
-      <span>{count}</span>
-      <button onClick={increment}>+</button>
-      <button onClick={addToCart}>add to cart</button>
+    <div className='flex flex-row min-w-full items-baseline justify-between pb-4'>
+      <div>
+      { count > 0 &&
+      <button 
+      className='shadow bg-white focus:shadow-outline font-bold py-1.5 px-3 rounded'
+      onClick={decrement}>-</button>
+      }
+      <span
+      className='px-3'
+      >{count}</span>
+      <button 
+      className='shadow bg-white focus:shadow-outline font-bold py-1.5 px-3 rounded'
+      onClick={increment}>+</button>
+      </div>
+      <button 
+      className='shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-1.5 px-3 rounded'
+      onClick={addToCart}>Add</button>
     </div>
   )
 }

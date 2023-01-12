@@ -64,7 +64,7 @@ app.post('/cart', async (req: Request, res: Response) => {
 app.patch('/cart', async (req: Request, res: Response) => {
 	try {
 		const { itemId, quantity } = req.body;
-		await pool.query('UPDATE cartItems SET quantity = cartItems.quantity + $2 WHERE ID = $1', [itemId, quantity])
+		await pool.query('UPDATE cartItems SET quantity = cartItems.quantity + $2 WHERE ID = $1 returning *', [itemId, quantity])
 		return res.status(201).send('ok');
 	} catch (error) {
 		return res.status(500).json({ error: error});

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { ICartItem } from '../types';
 import CartItem from './CartItem';
@@ -30,7 +30,6 @@ const Cart = () => {
 
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, itemId: number) => {
     e.preventDefault();
-
     try {
       await axios.delete('/cart', {data: {itemId}});
     } catch (err) {
@@ -66,7 +65,14 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <main className='flex flex-col mx-20 my-10 lg:mx-40'>
+      { itemsAmount === 0 ?
+      <h1 className='font-bold mb-10 text-2xl'>Your cart is empty! Go to the homepage to start shopping</h1> 
+      :
+      <h1
+      className='font-bold mb-10 text-2xl'
+      >Review your order and pay:</h1>
+      }
       {cart.map((cartItem: ICartItem, i) => 
       <CartItem 
       product={cartItem}
@@ -76,10 +82,12 @@ const Cart = () => {
       decrement={decrement}
       />
       )}
-      <div>Total Price: {totalPrice}$</div>
-      <div>Quantity: {itemsAmount}</div>
-      <button onClick={checkout}>Checkout</button>
-    </div>
+      <p>Total Price: {totalPrice}$</p>
+      <p>Quantity: {itemsAmount}</p>
+      <button 
+       className='shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
+      onClick={checkout}>Checkout</button>
+    </main>
   )
 }
 

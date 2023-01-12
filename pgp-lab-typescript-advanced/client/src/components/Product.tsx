@@ -18,13 +18,13 @@ const Product = () => {
       }, []);
 
   return (
-    <main>
-      <section>
-        <h1>{product.name}</h1>
-        <img src={product.image} />
-        <h3>{product.price}$</h3>
+    <main className='bg-slate-200'>
+      <section className="flex flex-col mx-20 pt-12 lg:mx-40">
+        <h1 className='font-medium text-xl'>{product.name}</h1>
+        <img src={product.image} className='rounded my-4'/>
         <p>{product.description}</p>
-        <p>Stock: {product.stock}</p>
+        <p>Stock {product.stock}</p>
+        <h3>{product.price}$</h3>
         <AddButton 
         product={product}
         />
